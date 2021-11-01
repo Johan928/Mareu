@@ -42,24 +42,22 @@ public static ArrayList<Meeting> ListMeetings = new ArrayList<>();
 
     @Override
     public ArrayList<Meeting> getMailsFilteredByLocation(String room) {
-        ArrayList<Meeting> result = new ArrayList<>();
+        ArrayList<Meeting> filteredListMeeting = new ArrayList<>();
 
         for (Meeting meeting : ListMeetings) {
-            if (meeting.getLocation() == room){
-                result.add(meeting);
+            if (meeting.getLocation().equalsIgnoreCase(room)){
+                filteredListMeeting.add(meeting);
             }
         }
 
-        return result;
+        return filteredListMeeting;
     }
 
     public ArrayList<Meeting> getMeetings(){
-
     return ListMeetings;
    }
 
-    @Override
-    public void deleteMeeting(Meeting meeting) {
+    @Override    public void deleteMeeting(Meeting meeting) {
         ListMeetings.remove(meeting);
     }
 

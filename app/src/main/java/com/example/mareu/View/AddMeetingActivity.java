@@ -24,6 +24,7 @@ import com.example.mareu.DI.DI;
 import com.example.mareu.Model.Meeting;
 import com.example.mareu.R;
 import com.example.mareu.databinding.ActivityAddMeetingBinding;
+import com.example.mareu.events.MeetingAddedOrDeletedEvent;
 import com.example.mareu.events.MeetingFilteredList;
 import com.example.mareu.service.DummyMeetingApiService;
 import com.example.mareu.service.DummyMeetingGenerator;
@@ -35,6 +36,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class AddMeetingActivity extends AppCompatActivity {
@@ -52,24 +54,28 @@ public class AddMeetingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-       initUI();
-initspinner();
-    }
-
-
-
-    private void initUI() {
         binding = ActivityAddMeetingBinding.inflate(getLayoutInflater());
-        textInputDate = binding.textinputEditTextDateAddmeetingactivity;
-        textInputStartingHour = binding.textinputEditTextStarthourAddmeetingactivity;
-        textInputEndingHour = binding.textinputEditTextEndhourAddmeetingactivity;
-        dropDownListRooms = binding.autoCompleteRoomsAddmeetingactivity;
-        createNewMeetingButton = binding.outlinedButtonCreateAddmeetingactivity;
-        textInputSubject = binding.textinputEditTextSubjectAddmeetingactivity;
-        textInputUsers = binding.textinputEditTextUsersAddmeetingactivity;
         View view = binding.getRoot();
         setContentView(view);
+
+       initWidgets();
+       initListener();
+       initdropdown();
+    }
+
+private void initWidgets() {
+
+    textInputDate = binding.textinputEditTextDateAddmeetingactivity;
+    textInputStartingHour = binding.textinputEditTextStarthourAddmeetingactivity;
+    textInputEndingHour = binding.textinputEditTextEndhourAddmeetingactivity;
+    dropDownListRooms = binding.autoCompleteRoomsAddmeetingactivity;
+    createNewMeetingButton = binding.outlinedButtonCreateAddmeetingactivity;
+    textInputSubject = binding.textinputEditTextSubjectAddmeetingactivity;
+    textInputUsers = binding.textinputEditTextUsersAddmeetingactivity;
+}
+
+    private void initListener() {
+
 
         textInputDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,16 +99,24 @@ initspinner();
         createNewMeetingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-             //   try {
-                  //  Meeting meeting = new Meeting(new SimpleDateFormat("dd/MM/yyyy hh:mm").parse(textInputDate.getText().toString() + " " + textInputStartingHour.getText().toString())
-                  //  ,new SimpleDateFormat("dd/MM/yyyy hh:mm").parse(textInputDate.getText().toString() + " "  + textInputEndingHour.getText().toString())
-                  //          ,dropDownListRooms.getText().toString(),textInputSubject.getText().toString(),textInputUsers.getText().toString());
-                 //  DI.getMeetingApiService().addMeeting(meeting);
-              //  } catch (ParseException e) {
-              //      e.printStackTrace();
-              //  }
+               try {
+                  Meeting meeting = new Meeting(new SimpleDateFormat("dd/MM/yyyy hh:mm").parse(textInputDate.getText().toString()
+                          + " " + textInputStartingHour.getText().toString())
+                   ,new SimpleDateFormat("dd/MM/yyyy hh:mm").parse(textInputDate.getText().toString()
+                          + " "  + textInputEndingHour.getText().toString())
+                            ,dropDownListRooms.getText().toString(),textInputSubject.getText().toString(),textInputUsers.getText().toString());
+                  DI.getMeetingApiService().addMeeting(meeting);
+               } catch (ParseException e) { e.printStackTrace();
+               }
 
-DI.getMeetingApiService().addMeeting(DummyMeetingGenerator.FAKE_MEETINGS_LIST.get(0));
+//DI.getMeetingApiService().addMeeting(DummyMeetingGenerator.FAKE_MEETINGS_LIST.get(0));
+
+              ArrayList<Meeting> meetings = DI.getMeetingApiService().getMeetings();
+
+                for (Meeting mt : meetings) {
+                    Log.d(TAG, "onClick:-" + mt.getLocation() + "-" + mt.getStartingDate());
+                }
+                EventBus.getDefault().post(new MeetingAddedOrDeletedEvent());
             }
         });
     }
@@ -151,7 +165,7 @@ DI.getMeetingApiService().addMeeting(DummyMeetingGenerator.FAKE_MEETINGS_LIST.ge
         });
     }
 
-private void initspinner() {
+private void initdropdown() {
 
 
     ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, DummyMeetingApiService.ROOMS);

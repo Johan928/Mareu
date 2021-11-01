@@ -23,8 +23,12 @@ public static List<Meeting> FAKE_MEETINGS_LIST;
     static {
         try {
             FAKE_MEETINGS_LIST = Arrays.asList(
-                    new Meeting(new SimpleDateFormat("dd/MM/yyyy hh:mm").parse("27/10/2021 08:30"), new SimpleDateFormat("dd/MM/yyyy hh:mm").parse("27/10/2021 10:30"), "ROOM1", "Morning Briefing", "Bob,John,Henri"),
-                    new Meeting(new SimpleDateFormat("dd/MM/yyyy hh:mm").parse("27/10/2021 11:00"), new SimpleDateFormat("dd/MM/yyyy hh:mm").parse("27/10/2021 08:30"), "ROOM6", "Team Evaluation", "Michel,Claude,René")
+                    new Meeting(new SimpleDateFormat("dd/MM/yyyy hh:mm").parse("01/11/2021 08:30"),
+                            new SimpleDateFormat("dd/MM/yyyy hh:mm").parse("27/10/2021 10:30"),
+                            "ROOM1", "Morning Briefing", "Bob,John,Henri"),
+                    new Meeting(new SimpleDateFormat("dd/MM/yyyy hh:mm").parse("02/11/2021 11:00"),
+                            new SimpleDateFormat("dd/MM/yyyy hh:mm").parse("27/10/2021 08:30"),
+                            "ROOM6", "Team Evaluation", "Michel,Claude,René")
             );
         } catch (ParseException e) {
             e.printStackTrace();

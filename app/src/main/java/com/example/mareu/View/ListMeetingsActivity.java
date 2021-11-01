@@ -17,7 +17,7 @@ import android.widget.DatePicker;
 import com.example.mareu.DI.DI;
 import com.example.mareu.Model.Meeting;
 import com.example.mareu.R;
-import com.example.mareu.databinding.ActivityListMeetingsBinding;
+import com.example.mareu.databinding.ActivityMainMeetingsBinding;
 import com.example.mareu.databinding.FragmentMeetingsListBinding;
 import com.example.mareu.events.MeetingAddedOrDeletedEvent;
 import com.example.mareu.events.MeetingFilteredList;
@@ -31,7 +31,7 @@ import java.util.Calendar;
 import com.example.mareu.Adapters.ListMeetingsPagerAdapter;
 
 public class ListMeetingsActivity extends AppCompatActivity {
-    ActivityListMeetingsBinding binding;
+    ActivityMainMeetingsBinding binding;
     FragmentMeetingsListBinding fragmentbinding;
     ListMeetingsPagerAdapter mListMeetingsPagerAdapter;
     private static final String TAG = "ListMeetingsActivity";
@@ -53,7 +53,7 @@ public class ListMeetingsActivity extends AppCompatActivity {
     }
 
     private void initUI() {
-        binding = ActivityListMeetingsBinding.inflate(getLayoutInflater());
+        binding = ActivityMainMeetingsBinding.inflate(getLayoutInflater());
         fragmentbinding = FragmentMeetingsListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setButtonAddMeeting();

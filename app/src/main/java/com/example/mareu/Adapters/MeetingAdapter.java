@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mareu.DI.DI;
 import com.example.mareu.Model.Meeting;
 import com.example.mareu.R;
-import com.example.mareu.databinding.ActivityListMeetingsBinding;
+import com.example.mareu.databinding.ActivityMainMeetingsBinding;
 import com.example.mareu.events.MeetingAddedOrDeletedEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.ViewHolder>
 {
-    ActivityListMeetingsBinding binding;
+    ActivityMainMeetingsBinding binding;
     private final ArrayList<Meeting> mMeetings;
     private static final String TAG = "MeetingAdapter";
 
@@ -34,7 +34,7 @@ this.mMeetings = meetings;
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
        View view = LayoutInflater.from(parent.getContext())
-               .inflate(R.layout.fragment_meetings,parent,false);
+               .inflate(R.layout.fragment_meetings_item,parent,false);
         return new ViewHolder(view);
     }
 
@@ -48,7 +48,7 @@ this.mMeetings = meetings;
             public void onClick(View view) {
 
                 DI.getMeetingApiService().deleteMeeting(meeting);
-                              EventBus.getDefault().post(new MeetingAddedOrDeletedEvent());
+                EventBus.getDefault().post(new MeetingAddedOrDeletedEvent());
             }
         });
 
