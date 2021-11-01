@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+        android:layout_margin="8dp">
+
+    <ImageView
+        android:id="@+id/circle"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="4dp"
+        android:src="@drawable/ic_baseline_circle_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/blue" />
+
+    <TextView
+        android:id="@+id/textview_meetings_information"
+        android:layout_width="0dp"
+        android:layout_height="24dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        app:layout_constraintBottom_toTopOf="@id/textview_meetings_users"
+        app:layout_constraintEnd_toStartOf="@+id/Imageview_delete_button"
+        app:layout_constraintStart_toEndOf="@+id/circle"
+        android:text="Meeting informations"
+        android:textStyle="bold"
+        android:gravity="center_vertical"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        />
+
+    <TextView
+        android:id="@+id/textview_meetings_users"
+        android:layout_width="0dp"
+        android:layout_height="24dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:gravity="center_vertical"
+
+        android:text="users list"
+        app:layout_constraintEnd_toStartOf="@+id/Imageview_delete_button"
+        app:layout_constraintStart_toEndOf="@+id/circle"
+        app:layout_constraintTop_toBottomOf="@id/textview_meetings_information" />
+
+    <ImageView
+        android:id="@+id/Imageview_delete_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_delete_24"
+        android:minWidth="24dp"
+        android:minHeight="24dp"
+        android:layout_margin="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textview_meetings_information"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textview_meetings_users"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

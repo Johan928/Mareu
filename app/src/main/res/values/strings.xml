@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Ma réu</string>
+    <!-- TODO: Remove or change this placeholder text -->
+       <string name="pick_a_date">Pick a Date</string>
+        <string name="starting_hour">Starting hour</string>
+    <string name="ending_hour">Ending hour</string>
+    <string name="select_room">Select ROOM</string>
+    <string name="list_of_participants">Liste des participants :</string>
+<string name="specify_a_subject">Specify a subject</string>
+</resources>
