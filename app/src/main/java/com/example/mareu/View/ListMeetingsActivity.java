@@ -21,12 +21,17 @@ import com.example.mareu.databinding.ActivityMainMeetingsBinding;
 import com.example.mareu.databinding.FragmentMeetingsListBinding;
 import com.example.mareu.events.MeetingAddedOrDeletedEvent;
 import com.example.mareu.events.MeetingFilteredList;
+import com.example.mareu.service.DummyMeetingApiService;
 import com.example.mareu.service.MeetingApiService;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.time.LocalDateTime;
+import java.time.Year;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import com.example.mareu.Adapters.ListMeetingsPagerAdapter;
 
@@ -67,24 +72,13 @@ public class ListMeetingsActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu,menu);
 
-//int i = 1;
-String room;
-       SubMenu subMenu = (SubMenu) menu.addSubMenu("Filter by location");
-   //   for (i=1;i <= DummyMeetingApiService.ROOMS.size();i++) {
-        //  room = (String) "ROOM" + i;
-         //  subMenu.add(0, i, i, room);
-           //     }
-        subMenu.add(0,1,1,"ROOM1");
-        subMenu.add(0,2,2,"ROOM2");
-        subMenu.add(0,3,3,"ROOM3");
-        subMenu.add(0,4,4,"ROOM4");
-        subMenu.add(0,5,5,"ROOM5");
-        subMenu.add(0,6,6,"ROOM6");
-        subMenu.add(0,7,7,"ROOM7");
-        subMenu.add(0,8,8,"ROOM8");
-        subMenu.add(0,9,9,"ROOM9");
-        subMenu.add(0,10,10,"ROOM10");
-
+        int i = 1;
+        String room;
+        SubMenu subMenu = (SubMenu) menu.addSubMenu("Filter by location");
+        for (i=1; i <= DummyMeetingApiService.ROOMS.length; i++) {
+          room = (String) "ROOM" + i;
+           subMenu.add(0, i, i, room);
+                }
         menu.add(0,11,1,"Reset filter");
 
         return true;
@@ -132,7 +126,7 @@ String room;
 
     private void dateDialog() {
         int selectedYear = 2021;
-        int selectedMonth = 11;
+        int selectedMonth = 10;
         int selectedDay =1;
 
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {

@@ -54,7 +54,7 @@ public static ArrayList<Meeting> ListMeetings = new ArrayList<>();
     }
 
     public ArrayList<Meeting> getMeetings(){
-    return ListMeetings;
+        return ListMeetings;
    }
 
     @Override    public void deleteMeeting(Meeting meeting) {
@@ -62,5 +62,7 @@ public static ArrayList<Meeting> ListMeetings = new ArrayList<>();
     }
 
     public static final String[] ROOMS = {"ROOM1","ROOM2","ROOM3","ROOM4","ROOM5","ROOM6","ROOM7","ROOM8","ROOM9","ROOM10"};
+
+    public static final List<String> USERS = Arrays.asList("Johan","Aurélie","Philippe","Henri","Nicolas","Frédéric","Frédéric","Marion","Yannick","Stéphanie");
 
 }

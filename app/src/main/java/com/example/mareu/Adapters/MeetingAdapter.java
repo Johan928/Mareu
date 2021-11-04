@@ -16,6 +16,7 @@ import com.example.mareu.databinding.ActivityMainMeetingsBinding;
 import com.example.mareu.events.MeetingAddedOrDeletedEvent;
 
 import org.greenrobot.eventbus.EventBus;
+import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -64,6 +65,7 @@ this.mMeetings = meetings;
     public final TextView informations;
     public final TextView users;
     public final ImageView delete;
+    public final TextView dateincircle;
 
     public ViewHolder(@NonNull View itemView) {
 
@@ -71,12 +73,18 @@ this.mMeetings = meetings;
         informations = itemView.findViewById(R.id.textview_meetings_information);
         users = itemView.findViewById(R.id.textview_meetings_users);
         delete = itemView.findViewById(R.id.Imageview_delete_button);
+        dateincircle = itemView.findViewById(R.id.textView_date_in_circle);
 
     }
     public void displayMeeting(Meeting meeting) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
-        informations.setText(meeting.getSubject() + " - " +simpleDateFormat.format(meeting.getStartingDate()) + " - " + meeting.getLocation());
+        String separator = " - ";
+        String informationsString = simpleDateFormat.format(meeting.getStartingDate()) + separator + meeting.getSubject() + separator + meeting.getLocation();
+
+        informations.setText(informationsString);
         users.setText(meeting.getUsers());
+        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("dd/MM\nyyyy");
+        dateincircle.setText(simpleDateFormat1.format(meeting.getStartingDate()));
         }
 
 

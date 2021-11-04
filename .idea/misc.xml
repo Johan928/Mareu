@@ -7,11 +7,12 @@
         <entry key="..\:/Users/johan/AndroidStudioProjects/Mareu/app/src/main/res/drawable/ic_baseline_add_circle_24.xml" value="0.5703125" />
         <entry key="..\:/Users/johan/AndroidStudioProjects/Mareu/app/src/main/res/drawable/ic_baseline_circle_24.xml" value="0.346875" />
         <entry key="..\:/Users/johan/AndroidStudioProjects/Mareu/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.5703125" />
-        <entry key="..\:/Users/johan/AndroidStudioProjects/Mareu/app/src/main/res/layout/activity_add_meeting.xml" value="0.1" />
+        <entry key="..\:/Users/johan/AndroidStudioProjects/Mareu/app/src/main/res/layout/activity_add_meeting.xml" value="0.25" />
         <entry key="..\:/Users/johan/AndroidStudioProjects/Mareu/app/src/main/res/layout/activity_list_meetings.xml" value="0.1" />
         <entry key="..\:/Users/johan/AndroidStudioProjects/Mareu/app/src/main/res/layout/fragment_meetings.xml" value="0.5541666666666667" />
-        <entry key="..\:/Users/johan/AndroidStudioProjects/Mareu/app/src/main/res/layout/fragment_meetings_item.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/johan/AndroidStudioProjects/Mareu/app/src/main/res/layout/fragment_meetings_item.xml" value="0.5" />
         <entry key="..\:/Users/johan/AndroidStudioProjects/Mareu/app/src/main/res/layout/fragment_meetings_list.xml" value="0.3307291666666667" />
+        <entry key="..\:/Users/johan/AndroidStudioProjects/Mareu/app/src/main/res/layout/material_single_item_list_line.xml" value="0.31927083333333334" />
         <entry key="..\:/Users/johan/AndroidStudioProjects/Mareu/app/src/main/res/layout/mettings_list.xml" value="0.5415384615384615" />
         <entry key="..\:/Users/johan/AndroidStudioProjects/Mareu/app/src/main/res/menu/menu.xml" value="0.25" />
       </map>

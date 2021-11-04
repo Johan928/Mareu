@@ -32,6 +32,7 @@
         android:gravity="center_vertical"
         android:textColor="@color/black"
         android:textSize="14sp"
+        android:maxLines="1"
         />
 
     <TextView
@@ -41,7 +42,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:gravity="center_vertical"
-
+android:lines="1"
         android:text="users list"
         app:layout_constraintEnd_toStartOf="@+id/Imageview_delete_button"
         app:layout_constraintStart_toEndOf="@+id/circle"
@@ -59,6 +60,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textview_meetings_users"
         />
+
+    <TextView
+        android:id="@+id/textView_date_in_circle"
+        android:layout_width="0px"
+        android:layout_height="wrap_content"
+        android:text="dd/mm\nyyyy"
+        android:gravity="center_horizontal"
+        android:textSize="32px"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/circle"
+        app:layout_constraintStart_toStartOf="@+id/circle"
+        app:layout_constraintEnd_toEndOf="@+id/circle"
+        app:layout_constraintTop_toTopOf="@+id/circle" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
