@@ -45,6 +45,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -68,7 +69,8 @@ public class AddMeetingActivity extends AppCompatActivity {
     List<String> users = new ArrayList<>();
     List<String> mRooms = new ArrayList<>();
     List<String> occupiedRooms = new ArrayList<>();
-
+    SimpleDateFormat simpleDateFormatWithHour = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.FRENCH);
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,10 +80,11 @@ public class AddMeetingActivity extends AppCompatActivity {
         setContentView(view);
 
        initWidgets();
-       initListeners();
+        initOnClickListeners();
        initTextFieldsListeners();
        initusers();
     }
+
     private void initTextFieldsListeners(){
       textInputDate.addTextChangedListener(new TextWatcher() {
           @Override
@@ -111,8 +114,7 @@ public class AddMeetingActivity extends AppCompatActivity {
           }
 
           @Override
-          public void afterTextChanged(Editable editable) {
-              initRooms();
+          public void afterTextChanged(Editable editable) { initRooms();
           }
       });
       textInputEndingHour.addTextChangedListener(new TextWatcher() {
@@ -133,6 +135,8 @@ public class AddMeetingActivity extends AppCompatActivity {
       });
     }
 
+
+
     private void initusers() {
         int id = 1000;
         for (String user : DummyMeetingApiService.USERS) {
@@ -140,7 +144,6 @@ public class AddMeetingActivity extends AppCompatActivity {
             checkBox.setText(user.toString());
             checkBox.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
 
-            //checkBox.setHeight(5);
             checkBox.setId(id);
             checkBox.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -179,45 +182,42 @@ private void initWidgets() {
     textInputUsersLayout = binding.outlinedTextFieldUsersAddmeetingactivity;
 }
 
-    private void initListeners() {
-
-
-
+    private void initOnClickListeners() {
 textInputDateLayout.setEndIconOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
-        dateDialog();
+        selectDateDialog();
     }
 });
 textInputDateLayout.setErrorIconOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
-        dateDialog();
+        selectDateDialog();
     }
 });
 textInputStartingHourLayout.setEndIconOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
-        timeDialog("startinghour");
+        selectTimeDialog("startinghour");
     }
 });
         textInputStartingHourLayout.setErrorIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                timeDialog("startinghour");
+                selectTimeDialog("startinghour");
             }
         });
 
       textInputEnddingHourLayout.setEndIconOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-              timeDialog("endinghour");
+              selectTimeDialog("endinghour");
           }
       });
         textInputEnddingHourLayout.setErrorIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                timeDialog("endinghour");
+                selectTimeDialog("endinghour");
             }
         });
 
@@ -226,6 +226,8 @@ textInputStartingHourLayout.setEndIconOnClickListener(new View.OnClickListener()
             public void onClick(View view) {createMeeting();}
         });
     }
+
+
 
     private void createMeeting() {
         textInputDateLayout.setError("");
@@ -236,17 +238,15 @@ textInputStartingHourLayout.setEndIconOnClickListener(new View.OnClickListener()
         textInputUsersLayout.setError("");
         // checking for a valid date
         try {
-            SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("dd/MM/yyyy");
-            simpleDateFormatDate.setLenient(false);
-            simpleDateFormatDate.parse(textInputDate.getText().toString());
+            simpleDateFormat.setLenient(false);
+            simpleDateFormat.parse(textInputDate.getText().toString());
         } catch (ParseException e) {
             e.printStackTrace();
             textInputDateLayout.setError("Invalid Date");
             return;
         }
        //checking for starting and ending hour --- ending hour can not be < starting hour
-        SimpleDateFormat simpleDateFormatWithHour = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.FRENCH);
-        simpleDateFormatWithHour.setLenient(false);
+       simpleDateFormatWithHour.setLenient(false);
        Date startingDate;
         try {
             startingDate = simpleDateFormatWithHour.parse(textInputDate.getText().toString() + " " + textInputStartingHour.getText().toString());
@@ -304,7 +304,7 @@ textInputStartingHourLayout.setEndIconOnClickListener(new View.OnClickListener()
 
     }
 
-    private void dateDialog() {
+    private void selectDateDialog() {
         int selectedYear = 2021;
         int selectedMonth = 10;
         int selectedDay =1;
@@ -313,7 +313,7 @@ textInputStartingHourLayout.setEndIconOnClickListener(new View.OnClickListener()
 
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
+
                 Calendar cal = Calendar.getInstance();
                 cal.set(i,i1,i2);
             textInputDate.setText(simpleDateFormat.format(cal.getTime()));
@@ -324,7 +324,7 @@ textInputStartingHourLayout.setEndIconOnClickListener(new View.OnClickListener()
 
     }
 
-    private void timeDialog(String id) {
+    private void selectTimeDialog(String id) {
 
         MaterialTimePicker timepicker = new MaterialTimePicker.Builder()
                         .setTimeFormat(TimeFormat.CLOCK_24H)
@@ -380,7 +380,7 @@ if (!(textInputDate.getText().toString().isEmpty()) && !(textInputStartingHour.g
     }
     private void checkForOccupiedRooms() {
         Date currentStartingdate;
-        SimpleDateFormat simpleDateFormatWithHour = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.FRENCH);
+
         simpleDateFormatWithHour.setLenient(false);
         try {
             currentStartingdate = simpleDateFormatWithHour.parse(textInputDate.getText().toString() + " " + textInputStartingHour.getText().toString());
