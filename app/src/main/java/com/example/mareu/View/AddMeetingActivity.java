@@ -7,6 +7,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -43,8 +45,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 public class AddMeetingActivity extends AppCompatActivity {
 
@@ -62,6 +66,8 @@ public class AddMeetingActivity extends AppCompatActivity {
     TextInputLayout textInputUsersLayout;
     Button registerNewMeetingButton;
     List<String> users = new ArrayList<>();
+    List<String> mRooms = new ArrayList<>();
+    List<String> occupiedRooms = new ArrayList<>();
 
 
     @Override
@@ -73,8 +79,58 @@ public class AddMeetingActivity extends AppCompatActivity {
 
        initWidgets();
        initListeners();
-       initListOfRooms();
+       initTextFieldsListeners();
        initusers();
+    }
+    private void initTextFieldsListeners(){
+      textInputDate.addTextChangedListener(new TextWatcher() {
+          @Override
+          public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+          }
+
+          @Override
+          public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+          }
+
+          @Override
+          public void afterTextChanged(Editable editable) {
+              initRooms();
+          }
+      });
+      textInputStartingHour.addTextChangedListener(new TextWatcher() {
+          @Override
+          public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+          }
+
+          @Override
+          public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+          }
+
+          @Override
+          public void afterTextChanged(Editable editable) {
+              initRooms();
+          }
+      });
+      textInputEndingHour.addTextChangedListener(new TextWatcher() {
+          @Override
+          public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+          }
+
+          @Override
+          public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+          }
+
+          @Override
+          public void afterTextChanged(Editable editable) {
+              initRooms();
+          }
+      });
     }
 
     private void initusers() {
@@ -93,12 +149,10 @@ public class AddMeetingActivity extends AppCompatActivity {
                 String chkTitle =(String) chk.getText();
                 if(chk.isChecked()) {
                     users.add(chkTitle);
-                    Log.d(TAG, "onADD: " + chkTitle);
                 } else {
                     if (users.contains(chkTitle)){
                         users.remove(chkTitle);
-                        Log.d(TAG, "onREMOVE: " + chkTitle);
-                    }
+                                      }
                 }
 
                 }
@@ -263,9 +317,7 @@ textInputStartingHourLayout.setEndIconOnClickListener(new View.OnClickListener()
                 Calendar cal = Calendar.getInstance();
                 cal.set(i,i1,i2);
             textInputDate.setText(simpleDateFormat.format(cal.getTime()));
-                Log.d(TAG, "onDateSet: " + simpleDateFormat.format(cal.getTime()));
-
-            }
+                 }
         };
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,dateSetListener,selectedYear,selectedMonth,selectedDay);
         datePickerDialog.show();
@@ -287,7 +339,6 @@ textInputStartingHourLayout.setEndIconOnClickListener(new View.OnClickListener()
             public void onClick(View view) {
 
                     String heure = String.format("%02d",timepicker.getHour()).concat(":").concat(String.format("%02d",timepicker.getMinute()));
-                Log.d(TAG, "onClick: " + timepicker.getHour());
                     if (id == "startinghour") {
                         textInputStartingHour.setText(heure);
                     } else {
@@ -297,12 +348,81 @@ textInputStartingHourLayout.setEndIconOnClickListener(new View.OnClickListener()
         });
     }
 
-private void initListOfRooms() {
+private void initRooms() {
 
+if (!(textInputDate.getText().toString().isEmpty()) && !(textInputStartingHour.getText().toString().isEmpty()) && !(textInputEndingHour.getText().toString().isEmpty())) {
 
-    ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, DummyMeetingApiService.ROOMS);
+    mRooms.clear();
+    mRooms.addAll(DummyMeetingApiService.ROOMS);
+
+    ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, mRooms);
     dropDownListRooms.setAdapter(adapter);
+    checkForOccupiedRooms();
+    String listOccupiedRooms = "";
+    for (String occupiedRoom : occupiedRooms) {
+        listOccupiedRooms = listOccupiedRooms.concat(occupiedRoom + " ");
+        }
+    if (!(listOccupiedRooms == "")) {
+        dropDownListRoomsLayout.setHelperText(listOccupiedRooms + getString(R.string.rooms_are_occupied));
+    } else {dropDownListRoomsLayout.setHelperText("");}
+
+} else {
+   invalidateDropDownList();
+}
+
 
 
 }
+    private void invalidateDropDownList(){
+        dropDownListRoomsLayout.setHelperText("");
+        dropDownListRooms.setText("");
+        dropDownListRooms.setAdapter(null);
+    }
+    private void checkForOccupiedRooms() {
+        Date currentStartingdate;
+        SimpleDateFormat simpleDateFormatWithHour = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.FRENCH);
+        simpleDateFormatWithHour.setLenient(false);
+        try {
+            currentStartingdate = simpleDateFormatWithHour.parse(textInputDate.getText().toString() + " " + textInputStartingHour.getText().toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+            textInputStartingHourLayout.setError("invalid starting time");
+            return;
+        }
+        Date currentEndingDate;
+        try {
+            currentEndingDate = simpleDateFormatWithHour.parse(textInputDate.getText().toString() + " "  + textInputEndingHour.getText().toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+            textInputEnddingHourLayout.setError("invalid ending time");
+            return;
+        }
+        if (currentStartingdate.after(currentEndingDate)){
+            textInputEnddingHourLayout.setError("Invalid ending before starting");
+            invalidateDropDownList();
+            return;
+        } else if (currentStartingdate.equals(currentEndingDate)) {
+            textInputEnddingHourLayout.setError("ending can't equals starting");
+            invalidateDropDownList();
+        }
+
+String currentRoom;
+        List<Meeting> meetings = DI.getMeetingApiService().getMeetings();
+        for (Meeting meeting : meetings) {
+
+            currentRoom = meeting.getLocation();
+   if ((  ((currentStartingdate.after(meeting.getStartingDate()) || currentStartingdate.equals(meeting.getStartingDate()) )  && (currentStartingdate.before(meeting.getEndDate())))) ||
+            (( (currentEndingDate.after(meeting.getStartingDate())) && ((currentEndingDate.equals(meeting.getEndDate())) || (currentEndingDate.before(meeting.getEndDate())))  ))) {
+
+
+      if (mRooms.contains(currentRoom)) {
+          mRooms.remove(currentRoom);
+      }
+      if (!(occupiedRooms.contains(currentRoom))) {
+          occupiedRooms.add(currentRoom);
+      }
+    }
+        }
+
+    }
 }

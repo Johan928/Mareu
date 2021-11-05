@@ -79,7 +79,7 @@ this.mMeetings = meetings;
     public void displayMeeting(Meeting meeting) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
         String separator = " - ";
-        String informationsString = simpleDateFormat.format(meeting.getStartingDate()) + separator + meeting.getSubject() + separator + meeting.getLocation();
+        String informationsString = simpleDateFormat.format(meeting.getStartingDate()) + separator + simpleDateFormat.format(meeting.getEndDate()) + separator + meeting.getSubject() + separator + meeting.getLocation();
 
         informations.setText(informationsString);
         users.setText(meeting.getUsers());

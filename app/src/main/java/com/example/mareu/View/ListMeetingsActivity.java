@@ -32,6 +32,7 @@ import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import com.example.mareu.Adapters.ListMeetingsPagerAdapter;
 
@@ -73,14 +74,13 @@ public class ListMeetingsActivity extends AppCompatActivity {
         inflater.inflate(R.menu.menu,menu);
 
         int i = 1;
-        String room;
+        List<String> rooms = DummyMeetingApiService.ROOMS;
         SubMenu subMenu = (SubMenu) menu.addSubMenu("Filter by location");
-        for (i=1; i <= DummyMeetingApiService.ROOMS.length; i++) {
-          room = (String) "ROOM" + i;
+        for (String room : rooms) {
            subMenu.add(0, i, i, room);
+           i+=1;
                 }
         menu.add(0,11,1,"Reset filter");
-
         return true;
     }
 

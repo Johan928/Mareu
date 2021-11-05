@@ -122,6 +122,8 @@ android:inputType="time"
         app:layout_constraintTop_toBottomOf="@id/outlinedTextField_subject_addmeetingactivity"
         app:startIconDrawable="@drawable/ic_baseline_location_24"
         app:errorEnabled="true"
+        app:helperTextEnabled="true"
+
         >
 
         <AutoCompleteTextView
