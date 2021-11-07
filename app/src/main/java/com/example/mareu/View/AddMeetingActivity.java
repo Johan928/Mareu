@@ -116,23 +116,22 @@ public class AddMeetingActivity extends AppCompatActivity {
         int id = 1000;
         for (String user : DummyMeetingApiService.USERS) {
             MaterialCheckBox checkBox = new MaterialCheckBox(this);
-            checkBox.setText(user.toString());
+            checkBox.setText(user);
             checkBox.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
 
             checkBox.setId(id);
             checkBox.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    CheckBox chk = (CheckBox) findViewById(view.getId());
+                    CheckBox chk = findViewById(view.getId());
                     String chkTitle =(String) chk.getText();
                     if(chk.isChecked()) {
                         users.add(chkTitle);
                     } else {
                         if (users.contains(chkTitle)){
                             users.remove(chkTitle);
-                                          }
+                        }
                     }
-
                 }
             });
             textInputUsersLayout.addView(checkBox,textInputUsersLayout.getChildCount() );
@@ -141,21 +140,21 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     }
 
-private void initWidgets() {
+    private void initWidgets() {
 
-    textInputDate = binding.textinputEditTextDateAddmeetingactivity;
-    textInputStartingHour = binding.textinputEditTextStarthourAddmeetingactivity;
-    textInputEndingHour = binding.textinputEditTextEndhourAddmeetingactivity;
-    dropDownListRooms = binding.autoCompleteRoomsAddmeetingactivity;
-    registerNewMeetingButton = binding.outlinedButtonCreateAddmeetingactivity;
-    textInputSubject = binding.textinputEditTextSubjectAddmeetingactivity;
-    textInputDateLayout = binding.outlinedTextFieldDateAddmeetingactivity;
-    textInputStartingHourLayout = binding.outlinedTextFieldStarthourAddmeetingactivity;
-    textInputEnddingHourLayout = binding.outlinedTextFieldEndhourAddmeetingactivity;
-    textInputSubjectLayout = binding.outlinedTextFieldSubjectAddmeetingactivity;
-    dropDownListRoomsLayout = binding.dropdownMenuRoomsAddmeetingactivity;
-    textInputUsersLayout = binding.outlinedTextFieldUsersAddmeetingactivity;
-}
+        textInputDate = binding.textinputEditTextDateAddmeetingactivity;
+        textInputStartingHour = binding.textinputEditTextStarthourAddmeetingactivity;
+        textInputEndingHour = binding.textinputEditTextEndhourAddmeetingactivity;
+        dropDownListRooms = binding.autoCompleteRoomsAddmeetingactivity;
+        registerNewMeetingButton = binding.outlinedButtonCreateAddmeetingactivity;
+        textInputSubject = binding.textinputEditTextSubjectAddmeetingactivity;
+        textInputDateLayout = binding.outlinedTextFieldDateAddmeetingactivity;
+        textInputStartingHourLayout = binding.outlinedTextFieldStarthourAddmeetingactivity;
+        textInputEnddingHourLayout = binding.outlinedTextFieldEndhourAddmeetingactivity;
+        textInputSubjectLayout = binding.outlinedTextFieldSubjectAddmeetingactivity;
+        dropDownListRoomsLayout = binding.dropdownMenuRoomsAddmeetingactivity;
+        textInputUsersLayout = binding.outlinedTextFieldUsersAddmeetingactivity;
+    }
 
     private void initOnClickListeners() {
         textInputDateLayout.setEndIconOnClickListener(new View.OnClickListener() {
@@ -182,7 +181,6 @@ private void initWidgets() {
                 selectTimeDialog("startinghour");
             }
         });
-
         textInputEnddingHourLayout.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -195,7 +193,6 @@ private void initWidgets() {
                 selectTimeDialog("endinghour");
             }
         });
-
         registerNewMeetingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {createMeeting();}
@@ -230,7 +227,7 @@ private void initWidgets() {
 
         String subject = textInputSubject.getText().toString();
         if (subject.isEmpty()) {
-            textInputSubjectLayout.setError("You must specify a subject !");
+            textInputSubjectLayout.setError(getString(R.string.subject_is_empty));
             return;
         }
         String room = dropDownListRooms.getText().toString();
@@ -259,7 +256,6 @@ private void initWidgets() {
         int selectedDay =1;
 
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
 
@@ -277,7 +273,6 @@ private void initWidgets() {
 
         MaterialTimePicker timepicker = new MaterialTimePicker.Builder()
                         .setTimeFormat(TimeFormat.CLOCK_24H)
-
                         .setTitleText("Select an hour :")
                         .build();
 
@@ -408,7 +403,6 @@ private void initWidgets() {
             return false;
         }
         return true;
-
     }
 
 

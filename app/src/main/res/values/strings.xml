@@ -1,13 +1,16 @@
 <resources>
     <string name="app_name">Ma réu</string>
     <!-- TODO: Remove or change this placeholder text -->
-       <string name="pick_a_date">Meeting date</string>
-        <string name="starting_hour">Starting hour</string>
+    <string name="pick_a_date">Meeting date</string>
+    <string name="starting_hour">Starting hour</string>
     <string name="ending_hour">Ending hour</string>
     <string name="select_room">Meeting room</string>
     <string name="list_of_participants">Select participants :</string>
-<string name="specify_a_subject">Specify a subject</string>
+    <string name="specify_a_subject">Specify a subject</string>
     <string name="register_new_meeting">Register meeting</string>
     <string name="separator">\u0020-\u0020</string>
     <string name="rooms_are_occupied"> are occupied</string>
+    <string name="subject_is_empty">You must specify a subject !</string>
+    <string name="no_rooms_selected">"You must choose a meeting room"</string>
+    <string name="no_participant_selected">"You must select at least one participant"</string>
 </resources>

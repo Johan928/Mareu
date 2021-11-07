@@ -74,26 +74,27 @@ this.mMeetings = meetings;
         return users;
     }
 
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
     public final TextView informations;
     public final TextView users;
     public final ImageView delete;
     public final TextView dateincircle;
 
-    public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView) {
 
-        super(itemView);
-        informations = itemView.findViewById(R.id.textview_meetings_information);
-        users = itemView.findViewById(R.id.textview_meetings_users);
-        delete = itemView.findViewById(R.id.Imageview_delete_button);
-        dateincircle = itemView.findViewById(R.id.textView_date_in_circle);
+            super(itemView);
+            informations = itemView.findViewById(R.id.textview_meetings_information);
+            users = itemView.findViewById(R.id.textview_meetings_users);
+            delete = itemView.findViewById(R.id.Imageview_delete_button);
+            dateincircle = itemView.findViewById(R.id.textView_date_in_circle);
 
-    }
+        }
 
         public void displayMeeting(Meeting meeting) {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
             String separator = " - ";
-            String informationsString = simpleDateFormat.format(meeting.getStartingDate()) + separator + simpleDateFormat.format(meeting.getEndDate()) + separator + meeting.getSubject() + separator + meeting.getLocation();
+            String informationsString = simpleDateFormat.format(meeting.getStartingDate()) + separator + meeting.getSubject() + separator + meeting.getLocation();
             informations.setText(informationsString);
             users.setText(listUsers(meeting.getUsers()));
             SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("dd/MM\nyyyy");

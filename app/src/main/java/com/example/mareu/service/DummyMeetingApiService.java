@@ -1,12 +1,6 @@
 package com.example.mareu.service;
 
-import static android.content.ContentValues.TAG;
-
-import android.util.Log;
-import android.widget.Toast;
-
 import com.example.mareu.Model.Meeting;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -34,8 +28,6 @@ public static ArrayList<Meeting> ListMeetings = new ArrayList<>();
             boolean sameDay = cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR) &&
                     cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR);
             if (sameDay) result.add(ListMeetings.get(i));
-
-
         }
       return  result;
     }
@@ -49,7 +41,6 @@ public static ArrayList<Meeting> ListMeetings = new ArrayList<>();
                 filteredListMeeting.add(meeting);
             }
         }
-
         return filteredListMeeting;
     }
 
@@ -57,7 +48,8 @@ public static ArrayList<Meeting> ListMeetings = new ArrayList<>();
         return ListMeetings;
    }
 
-    @Override    public void deleteMeeting(Meeting meeting) {
+    @Override
+    public void deleteMeeting(Meeting meeting) {
         ListMeetings.remove(meeting);
     }
 
