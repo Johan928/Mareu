@@ -16,7 +16,6 @@ import com.example.mareu.databinding.ActivityMainMeetingsBinding;
 import com.example.mareu.events.MeetingAddedOrDeletedEvent;
 
 import org.greenrobot.eventbus.EventBus;
-import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -61,6 +60,20 @@ this.mMeetings = meetings;
         return mMeetings.size();
     }
 
+    private static String listUsers(ArrayList<String> listUsers) {
+        String users = "";
+        String seperator = " - ";
+        int i = 0 ;
+        for (i=0;i<listUsers.size();i++){
+            if (i == listUsers.size()-1){
+                users = users + listUsers.get(i);
+            } else {
+                users = users + listUsers.get(i) + seperator;
+            }
+        }
+        return users;
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
     public final TextView informations;
     public final TextView users;
@@ -76,19 +89,16 @@ this.mMeetings = meetings;
         dateincircle = itemView.findViewById(R.id.textView_date_in_circle);
 
     }
-    public void displayMeeting(Meeting meeting) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
-        String separator = " - ";
-        String informationsString = simpleDateFormat.format(meeting.getStartingDate()) + separator + simpleDateFormat.format(meeting.getEndDate()) + separator + meeting.getSubject() + separator + meeting.getLocation();
 
-        informations.setText(informationsString);
-        users.setText(meeting.getUsers());
-        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("dd/MM\nyyyy");
-        dateincircle.setText(simpleDateFormat1.format(meeting.getStartingDate()));
+        public void displayMeeting(Meeting meeting) {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+            String separator = " - ";
+            String informationsString = simpleDateFormat.format(meeting.getStartingDate()) + separator + simpleDateFormat.format(meeting.getEndDate()) + separator + meeting.getSubject() + separator + meeting.getLocation();
+            informations.setText(informationsString);
+            users.setText(listUsers(meeting.getUsers()));
+            SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("dd/MM\nyyyy");
+            dateincircle.setText(simpleDateFormat1.format(meeting.getStartingDate()));
         }
-
-
-}
-
+    }
 
 }

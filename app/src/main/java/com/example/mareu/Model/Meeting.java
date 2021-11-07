@@ -1,9 +1,7 @@
 package com.example.mareu.Model;
 
-
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class Meeting {
 
@@ -11,9 +9,9 @@ public class Meeting {
  private Date mEndDate;
  private String mLocation;
  private String mSubject;
- private String mUsers;
+ private ArrayList<String> mUsers;
 
-    public Meeting(Date startingDate, Date endDate, String location, String subject, String users) {
+    public Meeting(Date startingDate, Date endDate, String location, String subject, ArrayList<String> users) {
 
         this.mStartingDate = startingDate;
         this.mEndDate = endDate;
@@ -32,7 +30,7 @@ public class Meeting {
     public String getSubject() {
         return  mSubject;
     }
-    public String getUsers() {
+    public ArrayList<String> getUsers() {
         return mUsers;
     }
 
