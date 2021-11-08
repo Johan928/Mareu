@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="checkbox_height">25dp</dimen>
+
+<dimen name="date_in_circle_textsize">12sp</dimen>
 
 </resources>

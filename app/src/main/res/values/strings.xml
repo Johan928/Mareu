@@ -9,8 +9,10 @@
     <string name="specify_a_subject">Specify a subject</string>
     <string name="register_new_meeting">Register meeting</string>
     <string name="separator">\u0020-\u0020</string>
-    <string name="rooms_are_occupied"> are occupied</string>
+    <string name="unavailable_rooms">Unavailable Rooms :</string>
     <string name="subject_is_empty">You must specify a subject !</string>
     <string name="no_rooms_selected">"You must choose a meeting room"</string>
     <string name="no_participant_selected">"You must select at least one participant"</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

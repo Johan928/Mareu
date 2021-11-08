@@ -17,6 +17,11 @@ public static ArrayList<Meeting> ListMeetings = new ArrayList<>();
     }
 
     @Override
+    public void clearMeetings() {
+        ListMeetings.clear();
+    }
+
+    @Override
     public ArrayList<Meeting> getMailsFilteredByDate(Date date) {
       ArrayList<Meeting> result = new ArrayList<>();
 

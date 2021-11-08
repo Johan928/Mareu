@@ -23,6 +23,11 @@ public interface MeetingApiService {
      */
     void addMeeting(Meeting meeting);
 
+    /**
+     *Clear the meeting list
+     */
+    void clearMeetings();
+
     ArrayList<Meeting> getMailsFilteredByDate(Date date);
 
     ArrayList<Meeting> getMailsFilteredByLocation(String room);

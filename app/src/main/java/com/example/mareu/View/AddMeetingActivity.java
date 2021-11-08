@@ -1,5 +1,7 @@
 package com.example.mareu.View;
 
+import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
+
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.text.Editable;
@@ -117,7 +119,8 @@ public class AddMeetingActivity extends AppCompatActivity {
         for (String user : DummyMeetingApiService.USERS) {
             MaterialCheckBox checkBox = new MaterialCheckBox(this);
             checkBox.setText(user);
-            checkBox.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
+            checkBox.setWidth(WRAP_CONTENT);
+            checkBox.setHeight(WRAP_CONTENT);
 
             checkBox.setId(id);
             checkBox.setOnClickListener(new View.OnClickListener() {
@@ -313,22 +316,18 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     private void checkForOccupiedRooms() {
 
-
         Date currentStartingdate;
         Date currentEndingDate;
-
         try {
             currentStartingdate = simpleDateFormatWithHour.parse(textInputDate.getText().toString() + " " + textInputStartingHour.getText().toString());
         } catch (ParseException e) {
             return;
         }
-
         try {
             currentEndingDate = simpleDateFormatWithHour.parse(textInputDate.getText().toString() + " " + textInputEndingHour.getText().toString());
         } catch (ParseException e) {
             return;
         }
-
 
         String currentRoom;
         occupiedRooms.clear();
@@ -343,7 +342,6 @@ public class AddMeetingActivity extends AppCompatActivity {
                 if (!(occupiedRooms.contains(currentRoom))) {
                     occupiedRooms.add(currentRoom);
                 }
-
             }
         }
         String listOccupiedRooms = "";
@@ -351,7 +349,7 @@ public class AddMeetingActivity extends AppCompatActivity {
             listOccupiedRooms = listOccupiedRooms.concat(occupiedRoom + " ");
         }
         if (!(listOccupiedRooms == "")) {
-            dropDownListRoomsLayout.setHelperText(listOccupiedRooms + getString(R.string.rooms_are_occupied));
+            dropDownListRoomsLayout.setHelperText(getString(R.string.unavailable_rooms) + listOccupiedRooms);
         } else {
             dropDownListRoomsLayout.setHelperText("");
         }

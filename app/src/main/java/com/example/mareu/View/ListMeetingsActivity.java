@@ -26,45 +26,55 @@ import com.example.mareu.service.MeetingApiService;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.time.LocalDateTime;
-import java.time.Year;
-import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
-import com.example.mareu.Adapters.ListMeetingsPagerAdapter;
 
 public class ListMeetingsActivity extends AppCompatActivity {
     ActivityMainMeetingsBinding binding;
     FragmentMeetingsListBinding fragmentbinding;
-    ListMeetingsPagerAdapter mListMeetingsPagerAdapter;
     private static final String TAG = "ListMeetingsActivity";
     ArrayList<Meeting> mMeetings = new ArrayList<>();
     ArrayList<Meeting> mDateFilteredMeetings = new ArrayList<>();
     ArrayList<Meeting> mLocationFilteredMeetings = new ArrayList<>();
     private MeetingApiService mMeetingApiService = DI.getMeetingApiService();
-    RecyclerView mRecyclerView;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+        protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        initUI();
+        try {
+            initUI(savedInstanceState);
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
 
         setSupportActionBar(binding.toolbar);
         mMeetings = mMeetingApiService.getMeetings();
     }
 
-    private void initUI() {
+    private void initUI(Bundle savedInstanceState) throws InstantiationException, IllegalAccessException {
+        mMeetingApiService.clearMeetings();
         binding = ActivityMainMeetingsBinding.inflate(getLayoutInflater());
         fragmentbinding = FragmentMeetingsListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setButtonAddMeeting();
-        mListMeetingsPagerAdapter = new ListMeetingsPagerAdapter(getSupportFragmentManager());
-        binding.container.setAdapter(mListMeetingsPagerAdapter);
+        if (savedInstanceState == null) {
+        getSupportFragmentManager().beginTransaction()
+                .setReorderingAllowed(true)
+                .add(R.id.fragment_container_list,MeetingsFragment.class.newInstance(),null)
+                .commit();
+        }
+        if (!(findViewById(R.id.fragment_container_details) == null)){
+            getSupportFragmentManager().beginTransaction()
+                    .setReorderingAllowed(true)
+                    .add(R.id.fragment_container_details,DetailsFragment.class.newInstance(),null)
+                    .commit();
+        }
 
     }
     private static final int ITEMID = Menu.FIRST;
