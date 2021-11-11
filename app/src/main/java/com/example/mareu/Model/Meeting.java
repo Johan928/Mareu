@@ -1,15 +1,16 @@
 package com.example.mareu.Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Meeting {
+public class Meeting implements Serializable {
 
- private Date mStartingDate;
- private Date mEndDate;
- private String mLocation;
- private String mSubject;
- private ArrayList<String> mUsers;
+    private final Date mStartingDate;
+    private final Date mEndDate;
+    private final String mLocation;
+    private final String mSubject;
+    private final ArrayList<String> mUsers;
 
     public Meeting(Date startingDate, Date endDate, String location, String subject, ArrayList<String> users) {
 

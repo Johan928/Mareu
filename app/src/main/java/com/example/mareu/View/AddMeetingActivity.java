@@ -88,11 +88,9 @@ public class AddMeetingActivity extends AppCompatActivity {
           @Override
           public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
           }
-
           @Override
           public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
           }
-
           @Override
           public void afterTextChanged(Editable editable) {
               initRooms();
@@ -363,7 +361,10 @@ public class AddMeetingActivity extends AppCompatActivity {
         simpleDateFormatWithHour.setLenient(false);
         simpleDateFormat.setLenient(false);
 
-        // checking for a valid date
+        /**
+        * checking for a valid date
+        */
+
         try {
             simpleDateFormat.parse(textInputDate.getText().toString());
             textInputDateLayout.setError("");
@@ -371,8 +372,9 @@ public class AddMeetingActivity extends AppCompatActivity {
             textInputDateLayout.setError("invalid Date");
             return false;
         }
-        //checking for starting and ending hour --- ending hour can not be < starting hour
-
+        /**
+        * checking for starting and ending hour --- ending hour can not be < starting hour
+        **/
 
         try {
             startingDate = simpleDateFormatWithHour.parse(textInputDate.getText().toString() + " " + textInputStartingHour.getText().toString());

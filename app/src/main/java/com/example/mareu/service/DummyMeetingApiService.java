@@ -1,10 +1,15 @@
 package com.example.mareu.service;
 
+import android.util.Log;
+
 import com.example.mareu.Model.Meeting;
+import com.example.mareu.R;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class DummyMeetingApiService implements MeetingApiService {
@@ -47,6 +52,18 @@ public static ArrayList<Meeting> ListMeetings = new ArrayList<>();
             }
         }
         return filteredListMeeting;
+    }
+
+    @Override
+    public int getMonthColorFromArray(Date date) {
+        int color;
+        int [] colors = new int[]{R.color.purple_200,R.color.teal_200,R.color.salmon,R.color.teal_700,
+                R.color.orange,R.color.yellow,R.color.whitesmoke,R.color.lightgray,
+                R.color.pink,R.color.blue,R.color.lightgreen,R.color.indianred};
+        GregorianCalendar cal = new GregorianCalendar();
+        cal.setTime(date);
+        color = colors[cal.get(GregorianCalendar.MONTH)];
+        return color;
     }
 
     public ArrayList<Meeting> getMeetings(){

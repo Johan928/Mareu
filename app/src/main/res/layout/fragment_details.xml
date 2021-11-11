@@ -1,16 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".View.DetailsFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:layout_margin="@dimen/margin_16dp"
+        android:id="@+id/textview_date_and_subject_details"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Meeting Details //TODO"
-        android:gravity="center"
-        android:textColor="@color/red"/>
+        android:layout_height="wrap_content"
+        android:text="@string/click_on_a_meeting"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="@dimen/textview_informations_details_textsize"
+        />
+    <TextView
+        android:layout_margin="@dimen/margin_16dp"
+        android:id="@+id/textview_location_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
 
-</FrameLayout>
+        app:layout_constraintTop_toBottomOf="@id/textview_date_and_subject_details"
+        android:textAlignment="textStart"
+
+        android:textStyle="bold"
+        android:textSize="@dimen/textview_15sp"
+        />
+    <TextView
+        android:layout_margin="@dimen/margin_16dp"
+        android:id="@+id/textview_starting_and_ending_hour_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toBottomOf="@id/textview_location_details"
+        android:textAlignment="textStart"
+
+        android:textStyle="bold"
+        android:textSize="@dimen/textview_15sp"
+        />
+
+    <TextView
+        android:layout_margin="@dimen/margin_16dp"
+        android:id="@+id/textview_list_of_participants_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/textview_starting_and_ending_hour_details"
+        android:textAlignment="textStart"
+
+        android:textStyle="bold"
+        android:textSize="@dimen/textview_15sp"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

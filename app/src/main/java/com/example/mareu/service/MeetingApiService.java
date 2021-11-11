@@ -32,4 +32,6 @@ public interface MeetingApiService {
 
     ArrayList<Meeting> getMailsFilteredByLocation(String room);
 
+    int getMonthColorFromArray(Date date);
+
 }
