@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".View.DetailsFragment">
+    tools:context=".View.DetailsFragment"
+    android:background="@color/whitesmoke">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
@@ -18,7 +19,7 @@
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textStyle="bold"
-        android:textSize="@dimen/textview_informations_details_textsize"
+        android:textSize="@dimen/textview_fragment_details"
         />
     <TextView
         android:layout_margin="@dimen/margin_16dp"
@@ -30,7 +31,7 @@
         android:textAlignment="textStart"
 
         android:textStyle="bold"
-        android:textSize="@dimen/textview_15sp"
+        android:textSize="@dimen/textview_fragment_details"
         />
     <TextView
         android:layout_margin="@dimen/margin_16dp"
@@ -42,7 +43,7 @@
         android:textAlignment="textStart"
 
         android:textStyle="bold"
-        android:textSize="@dimen/textview_15sp"
+        android:textSize="@dimen/textview_fragment_details"
         />
 
     <TextView
@@ -54,7 +55,7 @@
         android:textAlignment="textStart"
 
         android:textStyle="bold"
-        android:textSize="@dimen/textview_15sp"
+        android:textSize="@dimen/textview_fragment_details"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -15,12 +14,13 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mareu.DI.DI;
 import com.example.mareu.Model.Meeting;
 import com.example.mareu.R;
 import com.example.mareu.databinding.ActivityAddMeetingBinding;
-import com.example.mareu.events.MeetingAddedOrDeletedEvent;
+import com.example.mareu.events.MeetingAddedEvent;
 import com.example.mareu.service.DummyMeetingApiService;
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.textfield.TextInputEditText;
@@ -246,7 +246,7 @@ public class AddMeetingActivity extends AppCompatActivity {
 
         Meeting meeting = new Meeting(startingDate, endingDate, room, subject, usersToRegister);
         DI.getMeetingApiService().addMeeting(meeting);
-        EventBus.getDefault().post(new MeetingAddedOrDeletedEvent());
+        EventBus.getDefault().post(new MeetingAddedEvent());
         finish();
 
     }
@@ -266,6 +266,7 @@ public class AddMeetingActivity extends AppCompatActivity {
                  }
         };
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,dateSetListener,selectedYear,selectedMonth,selectedDay);
+
         datePickerDialog.show();
 
     }
@@ -333,8 +334,9 @@ public class AddMeetingActivity extends AppCompatActivity {
         for (Meeting meeting : meetings) {
             currentRoom = meeting.getLocation();
 
-            if ((((currentStartingdate.after(meeting.getStartingDate()) || currentStartingdate.equals(meeting.getStartingDate())) && (currentStartingdate.before(meeting.getEndDate())))) ||
-                    (((currentEndingDate.after(meeting.getStartingDate())) && ((currentEndingDate.equals(meeting.getEndDate())) || (currentEndingDate.before(meeting.getEndDate())))))) {
+            if ( (((currentStartingdate.after(meeting.getStartingDate()) || currentStartingdate.equals(meeting.getStartingDate())) && (currentStartingdate.before(meeting.getEndDate())))) ||
+                    (((currentEndingDate.after(meeting.getStartingDate())) && ((currentEndingDate.equals(meeting.getEndDate())) || (currentEndingDate.before(meeting.getEndDate()))))) ||
+                    (((currentStartingdate.before(meeting.getStartingDate())) && ((currentEndingDate.after(meeting.getEndDate()))))) ) {
 
                 mRooms.remove(currentRoom);
                 if (!(occupiedRooms.contains(currentRoom))) {

@@ -21,6 +21,8 @@ public interface MeetingApiService {
     /**
      *Create a new meeting
      */
+    void deleteFilteredMeeting(Meeting meeting,ArrayList<Meeting> meetingsList);
+
     void addMeeting(Meeting meeting);
 
     /**

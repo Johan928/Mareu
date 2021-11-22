@@ -28,7 +28,7 @@ public static ArrayList<Meeting> ListMeetings = new ArrayList<>();
 
     @Override
     public ArrayList<Meeting> getMailsFilteredByDate(Date date) {
-      ArrayList<Meeting> result = new ArrayList<>();
+      ArrayList<Meeting> FilteredByDateListMeeting = new ArrayList<>();
 
         Calendar cal1 = Calendar.getInstance();
         cal1.setTime(date);
@@ -37,21 +37,21 @@ public static ArrayList<Meeting> ListMeetings = new ArrayList<>();
             cal2.setTime(ListMeetings.get(i).getStartingDate());
             boolean sameDay = cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR) &&
                     cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR);
-            if (sameDay) result.add(ListMeetings.get(i));
+            if (sameDay) FilteredByDateListMeeting.add(ListMeetings.get(i));
         }
-      return  result;
+      return  FilteredByDateListMeeting;
     }
 
     @Override
     public ArrayList<Meeting> getMailsFilteredByLocation(String room) {
-        ArrayList<Meeting> filteredListMeeting = new ArrayList<>();
+        ArrayList<Meeting> filteredByLocationListMeeting = new ArrayList<>();
 
         for (Meeting meeting : ListMeetings) {
             if (meeting.getLocation().equalsIgnoreCase(room)){
-                filteredListMeeting.add(meeting);
+                filteredByLocationListMeeting.add(meeting);
             }
         }
-        return filteredListMeeting;
+        return filteredByLocationListMeeting;
     }
 
     @Override
@@ -75,10 +75,16 @@ public static ArrayList<Meeting> ListMeetings = new ArrayList<>();
         ListMeetings.remove(meeting);
     }
 
-   // public static final String[] ROOMS = {"ROOM1","ROOM2","ROOM3","ROOM4","ROOM5","ROOM6","ROOM7","ROOM8","ROOM9","ROOM10"};
+
+
+   @Override
+    public void deleteFilteredMeeting(Meeting meeting,ArrayList<Meeting> meetingList) {
+        meetingList.remove(meeting);
+    }
 
     public static final List<String> ROOMS = Arrays.asList("ROOM1","ROOM2","ROOM3","ROOM4","ROOM5","ROOM6","ROOM7","ROOM8","ROOM9","ROOM10");
 
-    public static final List<String> USERS = Arrays.asList("Johan","Aurélie","Philippe","Henri","Nicolas","Frédéric","Frédéric","Marion","Yannick","Stéphanie");
+    public static final List<String> USERS = Arrays.asList("johan@lamzone.com","aurelie@lamzone.com","philippe@lamzone.com","henri@lamzone.com","nicolas@lamzone.com",
+            "frederic@lamzone.com","fred@lamzone.com","marion@lamzone.com","yannick@lamzone.com","stephanie@lamzone.com");
 
 }

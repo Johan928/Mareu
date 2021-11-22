@@ -18,7 +18,7 @@ import com.example.mareu.Model.Meeting;
 import com.example.mareu.R;
 import com.example.mareu.databinding.ActivityMainMeetingsBinding;
 import com.example.mareu.databinding.FragmentMeetingsListBinding;
-import com.example.mareu.events.MeetingAddedOrDeletedEvent;
+import com.example.mareu.events.MeetingAddedEvent;
 import com.example.mareu.events.MeetingFilteredList;
 import com.example.mareu.events.ShowMeetingDetailsInFragment;
 import com.example.mareu.service.DummyMeetingApiService;
@@ -40,6 +40,8 @@ public class ListMeetingsActivity extends AppCompatActivity {
     ArrayList<Meeting> mDateFilteredMeetings = new ArrayList<>();
     ArrayList<Meeting> mLocationFilteredMeetings = new ArrayList<>();
     private final MeetingApiService mMeetingApiService = DI.getMeetingApiService();
+    public static String selectedList = "";
+    public int subMenuItemsNumber = 0;
 
 
     @Override
@@ -56,6 +58,7 @@ public class ListMeetingsActivity extends AppCompatActivity {
 
         setSupportActionBar(binding.toolbar);
         mMeetings = mMeetingApiService.getMeetings();
+        selectedList = "original";
     }
 
     @Override
@@ -90,76 +93,75 @@ public class ListMeetingsActivity extends AppCompatActivity {
     }
 
 
-    private static final int ITEMID = Menu.FIRST;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu,menu);
+        createSubMenus(menu);
 
-        int i = 1;
-        List<String> rooms = DummyMeetingApiService.ROOMS;
-        SubMenu subMenu = (SubMenu) menu.addSubMenu("Filter by location");
-        for (String room : rooms) {
-           subMenu.add(0, i, i, room);
-           i+=1;
-                }
-        menu.add(0,11,1,"Reset filter");
         return true;
     }
+
+private void createSubMenus(Menu menu) {
+    int i = 1;
+    List<String> rooms = DummyMeetingApiService.ROOMS;
+    SubMenu subMenu = (SubMenu) menu.addSubMenu("Filter by location");
+    for (String room : rooms) {
+        subMenu.add(0, i, i, room);
+        i+=1;
+    }
+    subMenuItemsNumber = i - 1;
+    menu.add(0,i,1,"Reset filter");
+
+}
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         String room;
-        switch (item.getItemId()) {
-            case 1 :
-            case 2 :
-            case 3 :
-            case 4 :
-            case 5 :
-            case 6 :
-            case 7 :
-            case 8 :
-            case 9 :
-            case 10 :
-                room = item.getTitle().toString();
-                locationDialog(room);
-                try {
-                    initFragmentDetails();
-                } catch (InstantiationException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-                return true;
-            case (R.id.filter_date):
-                dateDialog();
-                try {
-                    initFragmentDetails();
-                } catch (InstantiationException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
+
+        if ((item.getItemId() > 0) && (item.getItemId() <= subMenuItemsNumber)) {
+            selectedList = "filtered";
+            room = item.getTitle().toString();
+            locationDialog(room);
+            try {
+                initFragmentDetails();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
             return true;
-            case 11:
-                resetfilter();
-                try {
-                    initFragmentDetails();
-                } catch (InstantiationException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        } else if (item.getTitle() == "Reset filter" ){
+            selectedList = "original";
+            resetfilter();
+            try {
+                initFragmentDetails();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            return true;
+        } else if (item.getItemId() == R.id.filter_date) {
+            selectedList = "filtered";
+            dateDialog();
+            try {
+                initFragmentDetails();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
         }
 
     }
 
     private void resetfilter() {
-        EventBus.getDefault().post(new MeetingAddedOrDeletedEvent());
+        EventBus.getDefault().post(new MeetingAddedEvent());
     }
 
     @Subscribe
@@ -207,13 +209,11 @@ public class ListMeetingsActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
     }
 
     @Override
     protected void onStop() {
                 super.onStop();
-
     }
 
     private void setButtonAddMeeting(){

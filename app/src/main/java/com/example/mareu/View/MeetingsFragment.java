@@ -18,7 +18,7 @@ import com.example.mareu.DI.DI;
 import com.example.mareu.Model.Meeting;
 import com.example.mareu.R;
 
-import com.example.mareu.events.MeetingAddedOrDeletedEvent;
+import com.example.mareu.events.MeetingAddedEvent;
 import com.example.mareu.events.MeetingFilteredList;
 
 import com.example.mareu.service.MeetingApiService;
@@ -36,6 +36,7 @@ public class MeetingsFragment extends Fragment {
     RecyclerView mRecyclerView;
     ArrayList<Meeting> mMeetings;
     private MeetingApiService service = DI.getMeetingApiService();
+
 
 
     public MeetingsFragment() {
@@ -67,13 +68,13 @@ public class MeetingsFragment extends Fragment {
     }
 
     @Subscribe
-    public void MeetingAddedOrDeletedEvent(MeetingAddedOrDeletedEvent event) {
-        mRecyclerView.setAdapter(new MeetingAdapter(mMeetings));
+    public void meetingAddedEvent(MeetingAddedEvent event) {
+       mRecyclerView.setAdapter(new MeetingAdapter(mMeetings));
         mRecyclerView.getAdapter().notifyDataSetChanged();
     }
-@Subscribe
-public void MeetingFilteredList(MeetingFilteredList event){
-        mRecyclerView.setAdapter(new MeetingAdapter(event.getMeetings()));
+    @Subscribe
+    public void meetingFilteredListEvent(MeetingFilteredList event){
+        mRecyclerView.setAdapter(new MeetingAdapter(event.getFilteredMeetings()));
         mRecyclerView.getAdapter().notifyDataSetChanged();
 }
     private void initData() {
