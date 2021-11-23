@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class DummyMeetingGenerator {
 
@@ -18,7 +19,8 @@ public static List<Meeting> FAKE_MEETINGS_LIST;
             FAKEUSERLIST.add("bob@lamzone.com");
             FAKEUSERLIST.add("bene@lamzone.com");
             FAKEUSERLIST.add("georges@lamzone.com");
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.FRENCH);
+
                 FAKE_MEETINGS_LIST = Arrays.asList(
                     new Meeting(sdf.parse("01/11/2021 08:30"),sdf.parse("01/11/2021 10:30"),
                             "ROOM1", "Morning Briefing", FAKEUSERLIST),

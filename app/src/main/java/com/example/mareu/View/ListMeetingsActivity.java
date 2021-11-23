@@ -159,7 +159,8 @@ private void createSubMenus(Menu menu) {
             }
             return true;
         } else if (item.getTitle() == "Generate Meetings!!!"){
-            mMeetings.addAll(DummyMeetingGenerator.FAKE_MEETINGS_LIST);
+          //  mMeetings.addAll(DummyMeetingGenerator.FAKE_MEETINGS_LIST);
+            mMeetingApiService.setMeetings(DummyMeetingGenerator.FAKE_MEETINGS_LIST);
             EventBus.getDefault().post(new MeetingAddedEvent());
             return  true;
         } else {

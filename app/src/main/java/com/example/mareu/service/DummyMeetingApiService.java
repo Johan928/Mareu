@@ -74,6 +74,11 @@ public static ArrayList<Meeting> ListMeetings = new ArrayList<>();
    }
 
     @Override
+    public void setMeetings(List<Meeting> meetingList) {
+        ListMeetings.addAll(meetingList);
+    }
+
+    @Override
     public void deleteMeeting(Meeting meeting) {
         ListMeetings.remove(meeting);
     }

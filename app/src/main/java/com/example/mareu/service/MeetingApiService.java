@@ -14,6 +14,8 @@ public interface MeetingApiService {
      */
     ArrayList<Meeting> getMeetings();
 
+    void setMeetings(List<Meeting> meetingList);
+
     /**
      *Delete a meeting
      */
