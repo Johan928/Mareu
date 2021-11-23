@@ -24,6 +24,7 @@ import com.example.mareu.events.MeetingAddedEvent;
 import com.example.mareu.events.MeetingFilteredList;
 import com.example.mareu.events.ShowMeetingDetailsInFragment;
 import com.example.mareu.service.DummyMeetingApiService;
+import com.example.mareu.service.DummyMeetingGenerator;
 import com.example.mareu.service.MeetingApiService;
 
 import org.greenrobot.eventbus.EventBus;
@@ -114,6 +115,7 @@ private void createSubMenus(Menu menu) {
     }
     subMenuItemsNumber = i - 1;
     menu.add(0,i,1,"Reset filter");
+    menu.add(0,i +1,1,"Generate Meetings!!!");
 
 }
 
@@ -156,6 +158,10 @@ private void createSubMenus(Menu menu) {
                 e.printStackTrace();
             }
             return true;
+        } else if (item.getTitle() == "Generate Meetings!!!"){
+            mMeetings.addAll(DummyMeetingGenerator.FAKE_MEETINGS_LIST);
+            EventBus.getDefault().post(new MeetingAddedEvent());
+            return  true;
         } else {
             return super.onOptionsItemSelected(item);
         }

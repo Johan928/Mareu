@@ -56,7 +56,7 @@ public class MeetingTest {
             service.addMeeting(DummyMeetingGenerator.FAKE_MEETINGS_LIST.get(i));
         }
         List<Meeting> meetings = service.getMeetings();
-        Assert.assertEquals(2,meetings.size());
+        Assert.assertEquals(5,meetings.size());
     }
     @Test
     /**
@@ -84,7 +84,7 @@ public class MeetingTest {
         service.getMeetings().addAll(DummyMeetingGenerator.FAKE_MEETINGS_LIST);
         String room = "ROOM6";
         List<Meeting> filteredByRoomList = service.getMailsFilteredByLocation(room);
-        Assert.assertEquals(1,filteredByRoomList.size());
+        Assert.assertEquals(2,filteredByRoomList.size());
     }
 
 }
