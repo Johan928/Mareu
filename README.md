@@ -6,9 +6,10 @@
 3. [Installation](#installation)
 ### General Info
 Welcome to Maréu project. The app allows you to create meetings,choose a free room and add your coworkers.You can delete a Meeting. You can also filter your meetings by date or location.
-For testing, you can select : Generate Meetings !!! in the toolbar menu as show below.
+<br>For testing, you can select : Generate Meetings !!! in the toolbar menu as shown below.
 ### Screenshots
 ![Image text](/screens/1.png)
+![Image text](/screens/2.png)
 ### Installation
 To install and run the project :
 * Download the project from main branch by clicking CODE -> Download zip.
