@@ -5,10 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.fragment.app.Fragment;
+
 import com.example.mareu.Model.Meeting;
 import com.example.mareu.R;
 import com.example.mareu.databinding.FragmentDetailsBinding;
+
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
@@ -32,6 +35,7 @@ public class DetailsFragment extends Fragment {
     public DetailsFragment() {
         // Required empty public constructor
     }
+
     public static DetailsFragment newInstance() {
         DetailsFragment fragment = new DetailsFragment();
         return fragment;
@@ -71,21 +75,24 @@ public class DetailsFragment extends Fragment {
 
         if (!(mMeeting == null)) {
 
-           textViewMeetingDateAndSubject.setText(simpleDateFormat.format(mMeeting.getStartingDate()) + getString(R.string.separator) + mMeeting.getSubject());
-           textViewLocation.setText(mMeeting.getLocation());
-           textViewStartingDate.setText(getString(R.string.from) + simpleHourFormat.format(mMeeting.getStartingDate()) +getString(R.string.to) + simpleHourFormat.format(mMeeting.getEndDate()));
-           textViewParticipants.setText(getString(R.string.participants) + listParticipants());
+            textViewMeetingDateAndSubject.setText(simpleDateFormat.format(mMeeting.getStartingDate()) + getString(R.string.separator) + mMeeting.getSubject());
+            textViewLocation.setText(mMeeting.getLocation());
+            textViewStartingDate.setText(getString(R.string.from) + simpleHourFormat.format(mMeeting.getStartingDate()) + getString(R.string.to) + simpleHourFormat.format(mMeeting.getEndDate()));
+            textViewParticipants.setText(getString(R.string.participants) + listParticipants());
 
-        } else {textViewMeetingDateAndSubject.setText(getResources().getString(R.string.click_on_a_meeting));}
+        } else {
+            textViewMeetingDateAndSubject.setText(getResources().getString(R.string.click_on_a_meeting));
+        }
 
         super.onViewCreated(view, savedInstanceState);
     }
+
     private String listParticipants() {
         String users = "";
         String seperator = " - ";
-        int i = 0 ;
-        for (i=0;i<mMeeting.getUsers().size();i++){
-            if (i == mMeeting.getUsers().size()-1){
+        int i = 0;
+        for (i = 0; i < mMeeting.getUsers().size(); i++) {
+            if (i == mMeeting.getUsers().size() - 1) {
                 users = users + mMeeting.getUsers().get(i);
             } else {
                 users = users + mMeeting.getUsers().get(i) + seperator;

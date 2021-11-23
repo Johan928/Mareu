@@ -1,6 +1,7 @@
 package com.example.mareu.service;
 
 import com.example.mareu.Model.Meeting;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,5 +36,7 @@ public interface MeetingApiService {
     ArrayList<Meeting> getMailsFilteredByLocation(String room);
 
     int getMonthColorFromArray(Date date);
+
+    List<String> checkForOccupiedRooms(TextInputEditText textInputDate, TextInputEditText textInputStartingHour, TextInputEditText textInputEndingHour);
 
 }

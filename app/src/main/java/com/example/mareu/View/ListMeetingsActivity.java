@@ -2,6 +2,7 @@ package com.example.mareu.View;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.DatePicker;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.example.mareu.DI.DI;
 import com.example.mareu.Model.Meeting;
@@ -55,7 +57,8 @@ public class ListMeetingsActivity extends AppCompatActivity {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-
+        Drawable drawable = ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_baseline_menuoverflow_24);
+        binding.toolbar.setOverflowIcon(drawable);
         setSupportActionBar(binding.toolbar);
         mMeetings = mMeetingApiService.getMeetings();
         selectedList = "original";
@@ -96,9 +99,10 @@ public class ListMeetingsActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu,menu);
+        inflater.inflate(R.menu.menu, menu);
         createSubMenus(menu);
-
+        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setOverflowIcon(drawable);*/
         return true;
     }
 
