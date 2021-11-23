@@ -5,11 +5,13 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".View.DetailsFragment"
-    android:background="@color/whitesmoke">
+    android:background="@drawable/meetingroom">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_margin="@dimen/margin_16dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginLeft="@dimen/margin_16dp"
+        android:layout_marginRight="@dimen/margin_16dp"
         android:id="@+id/textview_date_and_subject_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,7 +30,7 @@
         android:layout_height="wrap_content"
 
         app:layout_constraintTop_toBottomOf="@id/textview_date_and_subject_details"
-        android:textAlignment="textStart"
+        android:textAlignment="center"
 
         android:textStyle="bold"
         android:textSize="@dimen/textview_fragment_details"
@@ -40,7 +42,7 @@
         android:layout_height="wrap_content"
 
         app:layout_constraintTop_toBottomOf="@id/textview_location_details"
-        android:textAlignment="textStart"
+        android:textAlignment="center"
 
         android:textStyle="bold"
         android:textSize="@dimen/textview_fragment_details"
@@ -52,7 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/textview_starting_and_ending_hour_details"
-        android:textAlignment="textStart"
+        android:textAlignment="center"
 
         android:textStyle="bold"
         android:textSize="@dimen/textview_fragment_details"

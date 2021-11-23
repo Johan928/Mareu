@@ -101,8 +101,6 @@ public class ListMeetingsActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         createSubMenus(menu);
-        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setOverflowIcon(drawable);*/
         return true;
     }
 
@@ -170,7 +168,7 @@ private void createSubMenus(Menu menu) {
 
     @Subscribe
     public void ShowMeetingDetailsInFragment(ShowMeetingDetailsInFragment event) {
-
+// déclenché lors d'un clic sur un meeting en mode land.
         if (!(findViewById(R.id.fragment_container_details) == null)) {
             getSupportFragmentManager().beginTransaction()
                     .setReorderingAllowed(true)

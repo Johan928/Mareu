@@ -22,7 +22,6 @@ public class DetailsFragment extends Fragment {
     FragmentDetailsBinding binding;
     TextView textViewMeetingDateAndSubject;
     TextView textViewStartingDate;
-    TextView textViewEndingDate;
     TextView textViewParticipants;
     TextView textViewLocation;
     SimpleDateFormat simpleHourFormat = new SimpleDateFormat("HH:mm", Locale.FRENCH);
@@ -76,7 +75,7 @@ public class DetailsFragment extends Fragment {
         if (!(mMeeting == null)) {
 
             textViewMeetingDateAndSubject.setText(simpleDateFormat.format(mMeeting.getStartingDate()) + getString(R.string.separator) + mMeeting.getSubject());
-            textViewLocation.setText(mMeeting.getLocation());
+            textViewLocation.setText(getString(R.string.select_room) + mMeeting.getLocation());
             textViewStartingDate.setText(getString(R.string.from) + simpleHourFormat.format(mMeeting.getStartingDate()) + getString(R.string.to) + simpleHourFormat.format(mMeeting.getEndDate()));
             textViewParticipants.setText(getString(R.string.participants) + listParticipants());
 
@@ -89,7 +88,7 @@ public class DetailsFragment extends Fragment {
 
     private String listParticipants() {
         String users = "";
-        String seperator = " - ";
+        String seperator = getString(R.string.separator);
         int i = 0;
         for (i = 0; i < mMeeting.getUsers().size(); i++) {
             if (i == mMeeting.getUsers().size() - 1) {
