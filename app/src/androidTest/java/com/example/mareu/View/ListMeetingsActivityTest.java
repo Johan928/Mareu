@@ -73,15 +73,15 @@ public class ListMeetingsActivityTest {
 
     }
 
-@Test
-public void CheckIfAddMeetingIsLaunchedOnButtonClick() {
+    @Test
+    public void CheckIfAddMeetingIsLaunchedOnButtonClick() {
     onView(withId(R.id.ButtonStartAddMeeting))
             .perform(click());
     onView(withId(R.id.add_meeting_activity)).check(matches(isDisplayed()));
 
     }
 
-@Test
+    @Test
     public void checkIfAddMeetingWorksAndCountRecyclerViewItems() {
     onView(withId(R.id.ButtonStartAddMeeting))
             .perform(click());
@@ -98,7 +98,7 @@ public void CheckIfAddMeetingIsLaunchedOnButtonClick() {
     onView(ViewMatchers.withId(R.id.recyclerview2)).check(matches(hasChildCount(3)));
 }
 
-@Test
+    @Test
     public void clickOnTrashDeleteMeeting(){
 
 
@@ -110,7 +110,7 @@ public void CheckIfAddMeetingIsLaunchedOnButtonClick() {
     onView(ViewMatchers.withId(R.id.recyclerview2)).check(RecyclerViewItemCount.withItemCount(ITEMS_COUNT-1));
 }
 
-@Test
+    @Test
     public void checkIfOptionMenuFilterByDateWorks(){
     openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getInstrumentation().getTargetContext());
     onView(withText("Filter by date"))

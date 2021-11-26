@@ -1,11 +1,20 @@
 package com.example.mareu.Model;
 
+
 import static org.junit.Assert.*;
+
+import android.app.Application;
+import android.content.Context;
+import android.view.View;
+
+import androidx.test.espresso.ViewFinder;
 
 import com.example.mareu.DI.DI;
 import com.example.mareu.service.DummyMeetingApiService;
 import com.example.mareu.service.DummyMeetingGenerator;
 import com.example.mareu.service.MeetingApiService;
+import com.google.android.material.textfield.TextInputEditText;
+import androidx.test.InstrumentationRegistry.*;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -48,7 +57,7 @@ public class MeetingTest {
     }
     @Test
     /**
-     * Feed the meetings list with the FAKE_MEETING_LIST and verify if getmeetings returns the 2 meetings.
+     * Feed the meetings list with the FAKE_MEETING_LIST and verify if getmeetings returns the meetings.
      */
     public void getMeeting() {
 
@@ -86,5 +95,21 @@ public class MeetingTest {
         List<Meeting> filteredByRoomList = service.getMailsFilteredByLocation(room);
         Assert.assertEquals(2,filteredByRoomList.size());
     }
+
+    @Test
+    public void checkForOccupiedRooms() {
+        service.clearMeetings();
+        service.getMeetings().addAll(DummyMeetingGenerator.FAKE_MEETINGS_LIST);
+        TextInputEditText textInputDate = new TextInputEditText(androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().getContext());
+        TextInputEditText textInputStartingHour = new TextInputEditText(androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().getContext());
+        TextInputEditText textInputEndingHour= new TextInputEditText(androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().getContext());
+        textInputDate.setText("01/11/2021");
+        textInputStartingHour.setText("08:30");
+        textInputEndingHour.setText("10:30");
+        List<String> occupiedRoomsList = service.checkForOccupiedRooms(textInputDate,textInputStartingHour,textInputEndingHour);
+        Assert.assertEquals(1,occupiedRoomsList.size());
+
+    }
+
 
 }
