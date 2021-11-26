@@ -207,7 +207,6 @@ public class AddMeetingActivity extends AppCompatActivity {
         };
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, dateSetListener, selectedYear, selectedMonth, selectedDay);
         datePickerDialog.show();
-
     }
 
     private void selectTimeDialog(String id) {
@@ -247,7 +246,6 @@ public class AddMeetingActivity extends AppCompatActivity {
     }
 
     private boolean checkfordatevalidity() {
-
         DataValidation dataValidation = new DataValidation(textInputDate, textInputDateLayout, textInputStartingHour, textInputStartingHourLayout, textInputEndingHour,
                 textInputEnddingHourLayout, dropDownListRooms, dropDownListRoomsLayout);
         return dataValidation.validate();
@@ -286,7 +284,6 @@ public class AddMeetingActivity extends AppCompatActivity {
             dropDownListRoomsLayout.setError(getString(R.string.no_rooms_selected));
             return;
         }
-
         ArrayList<String> usersToRegister = new ArrayList<>();
         usersToRegister.addAll(users);
         if (usersToRegister.size() == 0) {
