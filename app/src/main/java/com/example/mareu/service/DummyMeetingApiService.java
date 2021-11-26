@@ -130,4 +130,40 @@ public static ArrayList<Meeting> ListMeetings = new ArrayList<>();
         return occupiedRooms;
     }
 
+    @Override
+    public List<String> checkForOccupiedRoomsTests(String date,String startingHour, String endingHour) {
+        Date currentStartingdate;
+        Date currentEndingDate;
+        List<String> occupiedRooms = new ArrayList<>();
+        SimpleDateFormat simpleDateFormatWithHour = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.FRENCH);
+
+        try {
+            currentStartingdate = simpleDateFormatWithHour.parse(date.toString() + " " + startingHour.toString());
+        } catch (ParseException e) {
+            return null;
+        }
+        try {
+            currentEndingDate = simpleDateFormatWithHour.parse(date.toString() + " " + endingHour.toString());
+        } catch (ParseException e) {
+            return null;
+        }
+
+        String currentRoom;
+        occupiedRooms.clear();
+        List<Meeting> meetings = DI.getMeetingApiService().getMeetings();
+        for (Meeting meeting : meetings) {
+            currentRoom = meeting.getLocation();
+
+            if ((((currentStartingdate.after(meeting.getStartingDate()) || currentStartingdate.equals(meeting.getStartingDate())) && (currentStartingdate.before(meeting.getEndDate())))) ||
+                    (((currentEndingDate.after(meeting.getStartingDate())) && ((currentEndingDate.equals(meeting.getEndDate())) || (currentEndingDate.before(meeting.getEndDate()))))) ||
+                    (((currentStartingdate.before(meeting.getStartingDate())) && ((currentEndingDate.after(meeting.getEndDate())))))) {
+
+                if (!(occupiedRooms.contains(currentRoom))) {
+                    occupiedRooms.add(currentRoom);
+                }
+            }
+        }
+
+        return occupiedRooms;
+    }
 }

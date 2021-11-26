@@ -100,14 +100,12 @@ public class MeetingTest {
     public void checkForOccupiedRooms() {
         service.clearMeetings();
         service.getMeetings().addAll(DummyMeetingGenerator.FAKE_MEETINGS_LIST);
-        TextInputEditText textInputDate = new TextInputEditText(androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().getContext());
-        TextInputEditText textInputStartingHour = new TextInputEditText(androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().getContext());
-        TextInputEditText textInputEndingHour= new TextInputEditText(androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().getContext());
-        textInputDate.setText("01/11/2021");
-        textInputStartingHour.setText("08:30");
-        textInputEndingHour.setText("10:30");
-        List<String> occupiedRoomsList = service.checkForOccupiedRooms(textInputDate,textInputStartingHour,textInputEndingHour);
+        String date = "01/11/2021";
+        String startingHour = "08:30";
+        String endingHour = "10:30";
+        List<String> occupiedRoomsList = service.checkForOccupiedRoomsTests(date,startingHour,endingHour);
         Assert.assertEquals(1,occupiedRoomsList.size());
+        Assert.assertEquals("ROOM1",occupiedRoomsList.get(0).toString());
 
     }
 

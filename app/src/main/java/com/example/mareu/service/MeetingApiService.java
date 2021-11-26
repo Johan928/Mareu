@@ -41,4 +41,6 @@ public interface MeetingApiService {
 
     List<String> checkForOccupiedRooms(TextInputEditText textInputDate, TextInputEditText textInputStartingHour, TextInputEditText textInputEndingHour);
 
+    List<String> checkForOccupiedRoomsTests(String date,String startingHour, String endingHour);
+
 }
