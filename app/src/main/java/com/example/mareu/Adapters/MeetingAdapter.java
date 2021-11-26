@@ -81,9 +81,11 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.ViewHold
         int i;
         for (i=0;i<listUsers.size();i++){
             if (i == listUsers.size()-1){
-                users = users + listUsers.get(i);
+               // users = users + listUsers.get(i);
+                users = users.concat(listUsers.get(i));
             } else {
-                users = users + listUsers.get(i) + seperator;
+               // users = users + listUsers.get(i) + seperator;
+                users = users.concat(listUsers.get(i).concat(seperator));
             }
         }
         return users;
