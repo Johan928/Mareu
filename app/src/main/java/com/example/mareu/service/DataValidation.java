@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 public class DataValidation {
     TextInputEditText textInputDate;
@@ -50,7 +51,7 @@ public class DataValidation {
         simpleDateFormat.setLenient(false);
 
         try {
-            simpleDateFormat.parse(textInputDate.getText().toString());
+            simpleDateFormat.parse(Objects.requireNonNull(textInputDate.getText()).toString());
             textInputDateLayout.setError("");
         } catch (ParseException e) {
             textInputDateLayout.setError("invalid Date");
@@ -58,7 +59,7 @@ public class DataValidation {
         }
 
         try {
-            startingDate = simpleDateFormatWithHour.parse(textInputDate.getText().toString() + " " + textInputStartingHour.getText().toString());
+            startingDate = simpleDateFormatWithHour.parse(Objects.requireNonNull(textInputDate.getText()).toString() + " " + Objects.requireNonNull(textInputStartingHour.getText()).toString());
             textInputStartingHourLayout.setError("");
         } catch (ParseException e) {
             textInputStartingHourLayout.setError("select a starting time");
@@ -66,7 +67,7 @@ public class DataValidation {
         }
 
         try {
-            endingDate = simpleDateFormatWithHour.parse(textInputDate.getText().toString() + " " + textInputEndingHour.getText().toString());
+            endingDate = simpleDateFormatWithHour.parse(textInputDate.getText().toString() + " " + Objects.requireNonNull(textInputEndingHour.getText()).toString());
             textInputEnddingHourLayout.setError("");
         } catch (ParseException e) {
             e.printStackTrace();
@@ -74,6 +75,7 @@ public class DataValidation {
             return false;
         }
 
+        assert startingDate != null;
         if (startingDate.after(endingDate)) {
             textInputEnddingHourLayout.setError("invalid ending before starting");
             resetDropDownList();

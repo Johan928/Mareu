@@ -1,6 +1,5 @@
 package com.example.mareu.Adapters;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,6 @@ import com.example.mareu.DI.DI;
 import com.example.mareu.Model.Meeting;
 import com.example.mareu.R;
 import com.example.mareu.View.ListMeetingsActivity;
-import com.example.mareu.databinding.ActivityMainMeetingsBinding;
 import com.example.mareu.events.ShowMeetingDetailsInFragment;
 import com.example.mareu.service.MeetingApiService;
 
@@ -23,16 +21,16 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.ViewHolder>
 {
-    ActivityMainMeetingsBinding binding;
+
     private final ArrayList<Meeting> mMeetings;
-    private static final String TAG = "MeetingAdapter";
     private MeetingApiService mApiService;
 
-    public MeetingAdapter(ArrayList meetings) {
-this.mMeetings = meetings;
+    public MeetingAdapter(ArrayList<Meeting> meetings) {
+    this.mMeetings = meetings;
     }
 
     @NonNull
@@ -53,7 +51,7 @@ this.mMeetings = meetings;
             @Override
             public void onClick(View view) {
 
-                if(ListMeetingsActivity.selectedList == "filtered") {
+                if(ListMeetingsActivity.selectedList.equals("filtered")) {
                     mApiService.deleteFilteredMeeting(meeting,mMeetings);
                 }
                     mApiService.deleteMeeting(meeting);
@@ -80,7 +78,7 @@ this.mMeetings = meetings;
     private static String listUsers(ArrayList<String> listUsers) {
         String users = "";
         String seperator = " - ";
-        int i = 0 ;
+        int i;
         for (i=0;i<listUsers.size();i++){
             if (i == listUsers.size()-1){
                 users = users + listUsers.get(i);
@@ -111,12 +109,12 @@ this.mMeetings = meetings;
         }
 
         public void displayMeeting(Meeting meeting) {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.FRENCH);
             String separator = " - ";
             String informationsString = simpleDateFormat.format(meeting.getStartingDate()) + separator + meeting.getSubject() + separator + meeting.getLocation();
             informations.setText(informationsString);
             users.setText(listUsers(meeting.getUsers()));
-            SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("dd/MM\nyyyy");
+            SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("dd/MM\nyyyy",Locale.FRENCH);
             dateincircle.setText(simpleDateFormat1.format(meeting.getStartingDate()));
             dateincirclebackground.setColorFilter(ContextCompat.getColor(itemView.getContext(), DI.getMeetingApiService().getMonthColorFromArray(meeting.getStartingDate())), android.graphics.PorterDuff.Mode.SRC_IN);
         }

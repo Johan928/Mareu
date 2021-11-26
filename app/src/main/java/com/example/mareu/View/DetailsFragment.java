@@ -36,8 +36,7 @@ public class DetailsFragment extends Fragment {
     }
 
     public static DetailsFragment newInstance() {
-        DetailsFragment fragment = new DetailsFragment();
-        return fragment;
+        return new DetailsFragment();
     }
 
     public static DetailsFragment newInstance(Meeting meeting) {
@@ -89,7 +88,7 @@ public class DetailsFragment extends Fragment {
     private String listParticipants() {
         String users = "";
         String seperator = getString(R.string.separator);
-        int i = 0;
+        int i;
         for (i = 0; i < mMeeting.getUsers().size(); i++) {
             if (i == mMeeting.getUsers().size() - 1) {
                 users = users + mMeeting.getUsers().get(i);

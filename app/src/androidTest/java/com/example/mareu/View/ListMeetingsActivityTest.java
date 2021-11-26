@@ -3,35 +3,16 @@ package com.example.mareu.View;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.doubleClick;
 import static androidx.test.espresso.action.ViewActions.replaceText;
-import static androidx.test.espresso.action.ViewActions.scrollTo;
-import static androidx.test.espresso.action.ViewActions.typeText;
-import static androidx.test.espresso.action.ViewActions.typeTextIntoFocusedView;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.contrib.PickerActions.setDate;
-import static androidx.test.espresso.contrib.PickerActions.setTime;
 import static androidx.test.espresso.matcher.ViewMatchers.hasChildCount;
-import static androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.core.IsNull.notNullValue;
-import static org.junit.Assert.*;
 
-import android.app.DatePickerDialog;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.DatePicker;
-import android.widget.TimePicker;
 
-import androidx.test.espresso.ViewInteraction;
-import androidx.test.espresso.action.TypeTextAction;
-import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
@@ -39,23 +20,16 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
 import com.example.mareu.DI.DI;
-import com.example.mareu.Model.Meeting;
 import com.example.mareu.R;
 import com.example.mareu.View.utils.DeleteViewAction;
 import com.example.mareu.View.utils.RecyclerViewItemCount;
 import com.example.mareu.service.DummyMeetingGenerator;
-import com.google.android.material.timepicker.MaterialTimePicker;
 
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
-import org.hamcrest.TypeSafeMatcher;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-
-import java.util.Calendar;
 
 public class ListMeetingsActivityTest {
 

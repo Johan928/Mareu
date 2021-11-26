@@ -1,6 +1,7 @@
 package com.example.mareu.View;
 
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
+
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,7 +12,9 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.mareu.DI.DI;
 import com.example.mareu.Model.Meeting;
 import com.example.mareu.R;
@@ -25,7 +28,9 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
+
 import org.greenrobot.eventbus.EventBus;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,6 +38,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class AddMeetingActivity extends AppCompatActivity {
 
@@ -164,7 +170,7 @@ public class AddMeetingActivity extends AppCompatActivity {
                     if (chk.isChecked()) {
                         users.add(chkTitle);
                     } else {
-                        if (users.contains(chkTitle)) {users.remove(chkTitle);}
+                        users.remove(chkTitle);
                     }
                 }
             });
@@ -215,7 +221,7 @@ public class AddMeetingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String heure = String.format("%02d", timepicker.getHour()).concat(":").concat(String.format("%02d", timepicker.getMinute()));
-                if (id == "startinghour") {
+                if (id.equals("startinghour")) {
                     textInputStartingHour.setText(heure);
                 } else {
                     textInputEndingHour.setText(heure);
@@ -229,10 +235,10 @@ public class AddMeetingActivity extends AppCompatActivity {
             occupiedRooms = mMeetingApiService.checkForOccupiedRooms(textInputDate, textInputStartingHour, textInputEndingHour);
             String listOccupiedRooms = "";
             for (String occupiedRoom : occupiedRooms) {
-                if (mRooms.contains(occupiedRoom)) {mRooms.remove(occupiedRoom);}
+                mRooms.remove(occupiedRoom);
                 listOccupiedRooms = listOccupiedRooms.concat(occupiedRoom + " ");
             }
-            if (!(listOccupiedRooms == "")) {
+            if (!(listOccupiedRooms.equals(""))) {
                 dropDownListRoomsLayout.setHelperText(getString(R.string.unavailable_rooms) + listOccupiedRooms);
             } else {
                 dropDownListRoomsLayout.setHelperText("");
@@ -259,18 +265,18 @@ public class AddMeetingActivity extends AppCompatActivity {
         Date endingDate = null;
         if (checkfordatevalidity()) {
             try {
-                startingDate = simpleDateFormatWithHour.parse(textInputDate.getText().toString() + " " + textInputStartingHour.getText().toString());
+                startingDate = simpleDateFormatWithHour.parse(Objects.requireNonNull(textInputDate.getText()).toString() + " " + Objects.requireNonNull(textInputStartingHour.getText()).toString());
             } catch (ParseException e) {
                 e.printStackTrace();
             }
             try {
-                endingDate = simpleDateFormatWithHour.parse(textInputDate.getText().toString() + " " + textInputEndingHour.getText().toString());
+                endingDate = simpleDateFormatWithHour.parse(textInputDate.getText().toString() + " " + Objects.requireNonNull(textInputEndingHour.getText()).toString());
             } catch (ParseException e) {
                 e.printStackTrace();
             }
         } else return;
 
-        String subject = textInputSubject.getText().toString();
+        String subject = Objects.requireNonNull(textInputSubject.getText()).toString();
         if (subject.isEmpty()) {
             textInputSubjectLayout.setError(getString(R.string.subject_is_empty));
             return;

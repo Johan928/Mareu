@@ -108,7 +108,7 @@ public class ListMeetingsActivity extends AppCompatActivity {
 private void createSubMenus(Menu menu) {
     int i = 1;
     List<String> rooms = DummyMeetingApiService.ROOMS;
-    SubMenu subMenu = (SubMenu) menu.addSubMenu("Filter by location");
+    SubMenu subMenu = menu.addSubMenu("Filter by location");
     for (String room : rooms) {
         subMenu.add(0, i, i, room);
         i+=1;

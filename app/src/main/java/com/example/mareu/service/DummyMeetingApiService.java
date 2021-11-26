@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class DummyMeetingApiService implements MeetingApiService {
 
@@ -101,12 +102,12 @@ public static ArrayList<Meeting> ListMeetings = new ArrayList<>();
         SimpleDateFormat simpleDateFormatWithHour = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.FRENCH);
 
         try {
-            currentStartingdate = simpleDateFormatWithHour.parse(textInputDate.getText().toString() + " " + textInputStartingHour.getText().toString());
+            currentStartingdate = simpleDateFormatWithHour.parse(Objects.requireNonNull(textInputDate.getText()).toString() + " " + Objects.requireNonNull(textInputStartingHour.getText()).toString());
         } catch (ParseException e) {
             return null;
         }
         try {
-            currentEndingDate = simpleDateFormatWithHour.parse(textInputDate.getText().toString() + " " + textInputEndingHour.getText().toString());
+            currentEndingDate = simpleDateFormatWithHour.parse(textInputDate.getText().toString() + " " + Objects.requireNonNull(textInputEndingHour.getText()).toString());
         } catch (ParseException e) {
             return null;
         }
@@ -117,8 +118,9 @@ public static ArrayList<Meeting> ListMeetings = new ArrayList<>();
         for (Meeting meeting : meetings) {
             currentRoom = meeting.getLocation();
 
+            assert currentStartingdate != null;
             if ((((currentStartingdate.after(meeting.getStartingDate()) || currentStartingdate.equals(meeting.getStartingDate())) && (currentStartingdate.before(meeting.getEndDate())))) ||
-                    (((currentEndingDate.after(meeting.getStartingDate())) && ((currentEndingDate.equals(meeting.getEndDate())) || (currentEndingDate.before(meeting.getEndDate()))))) ||
+                    (((Objects.requireNonNull(currentEndingDate).after(meeting.getStartingDate())) && ((currentEndingDate.equals(meeting.getEndDate())) || (currentEndingDate.before(meeting.getEndDate()))))) ||
                     (((currentStartingdate.before(meeting.getStartingDate())) && ((currentEndingDate.after(meeting.getEndDate())))))) {
 
                 if (!(occupiedRooms.contains(currentRoom))) {
@@ -138,12 +140,12 @@ public static ArrayList<Meeting> ListMeetings = new ArrayList<>();
         SimpleDateFormat simpleDateFormatWithHour = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.FRENCH);
 
         try {
-            currentStartingdate = simpleDateFormatWithHour.parse(date.toString() + " " + startingHour.toString());
+            currentStartingdate = simpleDateFormatWithHour.parse(date + " " + startingHour);
         } catch (ParseException e) {
             return null;
         }
         try {
-            currentEndingDate = simpleDateFormatWithHour.parse(date.toString() + " " + endingHour.toString());
+            currentEndingDate = simpleDateFormatWithHour.parse(date + " " + endingHour);
         } catch (ParseException e) {
             return null;
         }
@@ -154,8 +156,9 @@ public static ArrayList<Meeting> ListMeetings = new ArrayList<>();
         for (Meeting meeting : meetings) {
             currentRoom = meeting.getLocation();
 
+            assert currentStartingdate != null;
             if ((((currentStartingdate.after(meeting.getStartingDate()) || currentStartingdate.equals(meeting.getStartingDate())) && (currentStartingdate.before(meeting.getEndDate())))) ||
-                    (((currentEndingDate.after(meeting.getStartingDate())) && ((currentEndingDate.equals(meeting.getEndDate())) || (currentEndingDate.before(meeting.getEndDate()))))) ||
+                    (((Objects.requireNonNull(currentEndingDate).after(meeting.getStartingDate())) && ((currentEndingDate.equals(meeting.getEndDate())) || (currentEndingDate.before(meeting.getEndDate()))))) ||
                     (((currentStartingdate.before(meeting.getStartingDate())) && ((currentEndingDate.after(meeting.getEndDate())))))) {
 
                 if (!(occupiedRooms.contains(currentRoom))) {

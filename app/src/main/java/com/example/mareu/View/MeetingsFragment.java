@@ -23,6 +23,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class MeetingsFragment extends Fragment {
@@ -64,13 +65,13 @@ public class MeetingsFragment extends Fragment {
     @Subscribe
     public void meetingAddedEvent(MeetingAddedEvent event) {
         mRecyclerView.setAdapter(new MeetingAdapter(mMeetings));
-        mRecyclerView.getAdapter().notifyDataSetChanged();
+        Objects.requireNonNull(mRecyclerView.getAdapter()).notifyDataSetChanged();
     }
 
     @Subscribe
     public void meetingFilteredListEvent(MeetingFilteredList event) {
         mRecyclerView.setAdapter(new MeetingAdapter(event.getFilteredMeetings()));
-        mRecyclerView.getAdapter().notifyDataSetChanged();
+        Objects.requireNonNull(mRecyclerView.getAdapter()).notifyDataSetChanged();
     }
 
     private void initData() {
